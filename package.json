@@ -1,0 +1,52 @@
+{
+  "name": "carpe-diem",
+  "version": "0.0.1",
+  "description": "Command Line Task Recorder",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest --verbose",
+    "build": "tsc -p .",
+    "start": "tsc -p . && node lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TianyiShi2001/doing.git"
+  },
+  "keywords": [
+    "cli",
+    "task-tracker"
+  ],
+  "author": "Tianyi Shi <ShiTianyi2001@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TianyiShi2001/doing/issues"
+  },
+  "homepage": "https://github.com/TianyiShi2001/doing#readme",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "chalk": "^4.0.0",
+    "chalk-pipe": "^3.0.0",
+    "chrono-node": "^1.4.5",
+    "configstore": "^5.0.1",
+    "figlet": "^1.3.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^7.1.0",
+    "inquirer-autocomplete-prompt": "^1.0.2",
+    "jest": "^25.4.0",
+    "juration": "^0.1.1",
+    "keypress": "^0.2.1",
+    "luxon": "^1.23.0",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.28",
+    "numeral": "^2.0.6",
+    "sugar": "^2.0.6",
+    "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "@types/yargs": "^15.0.4",
+    "ts-jest": "^25.4.0",
+    "@types/inquirer": "^6.5.0",
+    "@types/node": "^13.13.2",
+    "typescript": "^3.8.3"
+  }
+}
