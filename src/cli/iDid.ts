@@ -4,7 +4,7 @@ import { autocompleteDate, autocompleteTask, autocompleteDuration } from "./auto
 import * as _ from "lodash";
 import * as chrono from "chrono-node";
 import { DateTime } from "luxon";
-import { TaskEntry } from "../common";
+import { LogEntry } from "../common";
 
 inquirer.registerPrompt("autocomplete", require("inquirer-autocomplete-prompt"));
 
@@ -44,7 +44,7 @@ export function iDidOptionsNatualLanguageParser(query) {
   return 1;
 }
 
-export function iDid(opts: IDidOptions): TaskEntry {
+export function iDid(opts: IDidOptions): LogEntry {
   return {
     task: opts.task,
     datetime: DateTime.fromJSDate(opts.start).toString(),

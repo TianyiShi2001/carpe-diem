@@ -1,10 +1,28 @@
 import { secondsToHHMM, parseDuration } from "../utils";
 import * as fuzzy from "fuzzy";
 import * as chrono from "chrono-node";
+import * as CarpeDiemData from "../data";
 
 // ordered by occurence
-function getTasks(): string[] {
-  return ["foo", "bar"];
+function getTasks(algorithm = "recent"): string[] {
+  switch (algorithm) {
+    case "recent": {
+      const log = CarpeDiemData.getLog();
+      const last100 = log
+        .slice(log.length - 100)
+        .map((e) => e.task)
+        .reverse();
+      return last100.reduce((arr, task) => {
+        if (arr.indexOf(task) === -1) {
+          arr.push(task);
+        }
+        return arr;
+      }, []);
+    }
+    default:
+      break;
+  }
+  return Object.keys(CarpeDiemData.getTaskDict());
 }
 
 export async function autocompleteTask(answers, input) {

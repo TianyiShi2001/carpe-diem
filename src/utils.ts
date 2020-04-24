@@ -1,4 +1,6 @@
 import * as juration from "juration";
+const EventEmitter = require("events");
+const keypress = require("keypress");
 
 export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -40,4 +42,52 @@ export function parseDuration(durationString): number | undefined {
   } catch (e) {
     return undefined;
   }
+}
+
+class Stopwatch extends EventEmitter {
+  constructor(countDown) {
+    super();
+    this.elapsed = 0;
+    this.countDown = countDown;
+  }
+  print() {
+    process.stdout.write("\u001b[2K\u001b[0E");
+    if (this.countDown) {
+      process.stdout.write(`Time Elapsed: ${secondsToHHMMSS(this.elapsed)} | Time remaining: ${secondsToHHMMSS(this.countDown)}`);
+    } else {
+      process.stdout.write(`Time Elapsed: ${secondsToHHMMSS(this.elapsed)}`);
+    }
+    process.stdout.write('   PRESS "q" to stop');
+  }
+}
+
+export async function executeAfterStopwatch(callback, countDown) {
+  let stopwatch = new Stopwatch(countDown);
+  stopwatch.on("tick", function () {
+    this.elapsed++;
+    this.countDown--;
+    this.e;
+    this.print();
+  });
+  stopwatch.on("stop", function () {
+    this.stopped = true;
+  });
+  async function runStopwatch(stopwatch) {
+    for (;;) {
+      if (stopwatch.stopped) break;
+      stopwatch.emit("tick");
+      await sleep(1000);
+    }
+  }
+  runStopwatch(stopwatch);
+  keypress(process.stdin);
+  process.stdin.on("keypress", function (ch, key) {
+    if (key && key.name == "q") {
+      stopwatch.emit("stop");
+      callback();
+      process.stdin.pause();
+    }
+  });
+  process.stdin.setRawMode(true);
+  process.stdin.resume();
 }
