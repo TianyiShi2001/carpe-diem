@@ -58,7 +58,7 @@ yargs
           coerce: (arr) => arr.join(" "),
         })
         .option("start", {
-          alias: ["at", "T"],
+          alias: ["at", "T", "on"],
           describe: "Datetime of your task",
           array: true,
           coerce: (arr) => chrono.parseDate(arr.join(" ")),
@@ -92,7 +92,7 @@ yargs
           console.log(CarpeDiemData.getLog());
           break;
         case "tasks":
-          console.log(CarpeDiemData.gettasks());
+          console.log(CarpeDiemData.getTaskDict());
         default:
           console.log("not implemented yet");
           break;
