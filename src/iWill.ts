@@ -1,20 +1,20 @@
-import * as inquirer from "inquirer";
-import { sleep, secondsToHHMMSS, parseDuration, executeAfterStopwatch } from "../utils";
-import { autocompleteTask, autocompleteDuration } from "./autocomplete";
+import inquirer from "./utils/inquirer";
+import { sleep, secondsToHHMMSS, parseDuration, executeAfterStopwatch } from "./utils";
+import { autocompleteTask, autocompleteDuration } from "./utils/autocomplete";
 import * as _ from "lodash";
 import { DateTime } from "luxon";
-import { LogEntry } from "../common";
-import * as CarpeDiemData from "../data";
-
-inquirer.registerPrompt("autocomplete", require("inquirer-autocomplete-prompt"));
+import { LogEntry } from "./common";
+import * as CarpeDiemData from "./data";
+import { inquirerAttrs } from "./common";
 
 interface IWillOptions {
   task: string;
   duration?: number;
+  attrs?: { [k: string]: any };
 }
 
 export async function getIWillOptionsInteractive(): Promise<IWillOptions> {
-  return inquirer.prompt([
+  let ans1 = await inquirer.prompt([
     {
       type: "autocomplete",
       name: "task",
@@ -29,6 +29,8 @@ export async function getIWillOptionsInteractive(): Promise<IWillOptions> {
       filter: parseDuration,
     },
   ]);
+  let ans2 = await inquirerAttrs(ans1.task);
+  return { ...ans1, attrs: ans2 };
 }
 
 export async function iWill(opts: IWillOptions) {
@@ -37,7 +39,7 @@ export async function iWill(opts: IWillOptions) {
   let tz = start.zoneName;
   executeAfterStopwatch(() => {
     let duration = ~~((DateTime.local() - start) / 1000);
-    let entry = { task: opts.task, datetime: startTime, tz, duration };
+    let entry = { task: opts.task, datetime: startTime, tz, duration, attrs: opts.attrs };
     console.log(entry);
     CarpeDiemData.addLogEntry(entry);
   }, opts.duration);

@@ -2,6 +2,10 @@
 
 A handy task recorder for people who don't make plans but do care about their efficiency.
 
+# Need Help
+
+I want to prosimify my stopwatch function which is currently implemented using Node.js `EventEmitter` and callbacks but currently I haven't found a way to do it. Please see [this stackoverflow question](https://stackoverflow.com/questions/61392232/how-to-break-an-infinite-loop-inside-a-function-on-keystroke-in-node-js).
+
 # Installation
 
 ```bash
@@ -28,14 +32,14 @@ Note that you are more likely to use the alias `i w` in reality.
 
 Just `i will` or `i w`. You will be able to select from a list of tasks you've done previously, or you can enter a new task. You will be prompted to select or enter an expected duration (you can write `2.5h` or `2h30min`, as described above), but you can skip this.
 
-### 'Natural language' mode <NOT IMPLEMENTED YET>:
+### 'Natural language' mode (NOT IMPLEMENTED YET):
 
 This is inspired by SQL.
 
 - `i will do foo bar` or `i will foo bar` is equivalent to `i will --do foo bar`
 - `i will do foo bar for 2.5h` or `i will foo bar for 2.5h` is equivalent to `i will --do foo bar --for 2.5h`
 
-## `i continue` <NOT IMPLEMENTED YET>
+## `i continue` (NOT IMPLEMENTED YET)
 
 This will continue the previous task. The countdown will continue if there is one.
 
@@ -57,8 +61,48 @@ Self-explainatory, isn't it?
 
 Just `i did` or `i d`. Similar to the interative mode of `i will`, but you have to specify the start time and duration.
 
-### 'Natural language' mode <NOT IMPLEMENTED YET>:
+### 'Natural language' mode (NOT IMPLEMENTED YET):
 
 ## `i show`
 
 - `i show log`: show the log (the list of tasks you've done), in JSON format
+
+# Advanced Features
+
+## Custom Attributes
+
+Each task can have several associated attributes. For example, for the task `read textbook`, there can be attributes `bookName`, `pageStart`, `pageEnd`, `chapter`, for example. Custom attributes can be set using the `i edit tasks` command, and once they're set, additional prompts will be generated for this task.
+
+# TODOs
+
+- `i summarise` functionalities
+- task tags/categories (and/or hierachical classification?)
+- elaborate custom attributes
+- inquirer? enquirer? prompts?
+
+# Compared To Other Command line time trackers
+
+[Doing](https://github.com/ttscoff/doing/)
+
+## Custom Attributes
+
+## Natural Language Support
+
+carpe-diem:
+
+```bash
+i did foo bar at 15:00 for 2h30m
+```
+
+Timetrap:
+
+```bash
+t out --at "in 30 minutes"
+t edit --start "last monday at 10:30am"
+t edit --end "tomorrow at noon"
+t display --start "10am" --end "2pm"
+t i -a "2010-11-29 12:30:00"
+```
+
+||[carpe-diem](https://github.com/TianyiShi2001/carpe-diem)|[Timetrap](https://github.com/samg/timetrap)|
+|Language|Typescript (Node.js)|Ruby|

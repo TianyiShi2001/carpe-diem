@@ -1,6 +1,7 @@
 const Configstore = require("configstore");
 const data = new Configstore("carpe-diem");
-import { LogEntry, TaskEntry, LocationEntry } from "./common";
+import { LogEntry, LocationEntry } from "./common";
+import { TaskEntry } from "./task";
 import * as deepExtend from "deep-extend";
 
 if (!data.get("log")) {
@@ -13,7 +14,7 @@ if (!data.get("tasks")) {
   data.set("tasks", {});
 }
 
-export function getLog() {
+export function getLog(): LogEntry[] {
   return data.get("log");
 }
 export function getLocationDict() {

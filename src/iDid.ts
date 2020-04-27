@@ -1,22 +1,21 @@
-import * as inquirer from "inquirer";
-import { parseDuration } from "../utils";
-import { autocompleteDate, autocompleteTask, autocompleteDuration } from "./autocomplete";
+import inquirer from "./utils/inquirer";
+import { parseDuration } from "./utils";
+import { autocompleteDate, autocompleteTask, autocompleteDuration } from "./utils/autocomplete";
 import * as _ from "lodash";
 import * as chrono from "chrono-node";
 import { DateTime } from "luxon";
-import { LogEntry } from "../common";
-
-inquirer.registerPrompt("autocomplete", require("inquirer-autocomplete-prompt"));
+import { LogEntry, inquirerAttrs } from "./common";
 
 interface IDidOptions {
   task: string;
   start: Date;
   duration: number;
   tz?: string;
+  attrs?: { [k: string]: any };
 }
 
 export async function getIDidOptionsInteractive(): Promise<IDidOptions> {
-  return inquirer.prompt([
+  let ans1 = await inquirer.prompt([
     {
       type: "autocomplete",
       name: "task",
@@ -38,6 +37,8 @@ export async function getIDidOptionsInteractive(): Promise<IDidOptions> {
       filter: parseDuration,
     },
   ]);
+  let ans2 = await inquirerAttrs(ans1.task);
+  return { ...ans1, attrs: ans2 };
 }
 
 export function iDidOptionsNatualLanguageParser(query) {
@@ -50,5 +51,6 @@ export function iDid(opts: IDidOptions): LogEntry {
     datetime: DateTime.fromJSDate(opts.start).toString(),
     tz: DateTime.local().zoneName,
     duration: opts.duration,
+    attrs: opts.attrs,
   };
 }

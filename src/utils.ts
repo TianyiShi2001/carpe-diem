@@ -1,4 +1,5 @@
 import * as juration from "juration";
+import * as _ from "lodash";
 const EventEmitter = require("events");
 const keypress = require("keypress");
 
@@ -51,7 +52,8 @@ class Stopwatch extends EventEmitter {
     this.countDown = countDown;
   }
   print() {
-    process.stdout.write("\u001b[2K\u001b[0E");
+    //process.stdout.write("\u001b[2K\u001b[0E");
+    console.clear();
     if (this.countDown) {
       process.stdout.write(`Time Elapsed: ${secondsToHHMMSS(this.elapsed)} | Time remaining: ${secondsToHHMMSS(this.countDown)}`);
     } else {
@@ -90,4 +92,12 @@ export async function executeAfterStopwatch(callback, countDown) {
   });
   process.stdin.setRawMode(true);
   process.stdin.resume();
+}
+
+export function arrayToSpaceSeparatedString(arr) {
+  return;
+}
+
+export function uniqueSortByOccurence(arr) {
+  return _.chain(arr).countBy().toPairs().sortBy(1).reverse().map(0).value();
 }

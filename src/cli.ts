@@ -2,13 +2,14 @@
 //#!/usr/bin/env node
 
 import * as yargs from "yargs";
-import { getIDidOptionsInteractive, iDid } from "./cli/iDid";
-import { getIWillOptionsInteractive, iWill } from "./cli/iWill";
+import { getIDidOptionsInteractive, iDid } from "./iDid";
+import { getIWillOptionsInteractive, iWill } from "./iWill";
 import { parseDuration } from "./utils";
 import * as chrono from "chrono-node";
 import * as figlet from "figlet";
 import * as chalk from "chalk";
 import * as CarpeDiemData from "./data";
+import { getTaskOptionsInteractive } from "./task";
 
 //console.clear();
 //console.log(chalk.yellow(figlet.textSync("Carpe Diem", { horizontalLayout: "full" })));
@@ -93,6 +94,23 @@ yargs
           break;
         case "tasks":
           console.log(CarpeDiemData.getTaskDict());
+          break;
+        default:
+          console.log("not implemented yet");
+          break;
+      }
+    },
+  })
+  .command({
+    command: "edit <item>",
+    alias: "e",
+    builder: (yargs) => yargs.positional("item", { describe: "log/tasks/locations/summary (currently only tasks implemented)" }),
+    handler: async (argv) => {
+      switch (argv.item) {
+        case "tasks":
+          let task = await getTaskOptionsInteractive();
+          CarpeDiemData.updateTasks(task);
+          break;
         default:
           console.log("not implemented yet");
           break;

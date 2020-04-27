@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TianyiShi2001/doing.git"
+    "url": "git+https://github.com/TianyiShi2001/carpe-diem.git"
   },
   "keywords": [
     "cli",
@@ -23,11 +23,10 @@
   "author": "Tianyi Shi <ShiTianyi2001@outlook.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TianyiShi2001/doing/issues"
+    "url": "https://github.com/TianyiShi2001/carpe-diem/issues"
   },
-  "homepage": "https://github.com/TianyiShi2001/doing#readme",
+  "homepage": "https://github.com/TianyiShi2001/carpe-diem#readme",
   "dependencies": {
-    "better-sqlite3": "^7.0.0",
     "blessed": "^0.1.81",
     "chalk": "^4.0.0",
     "chalk-pipe": "^3.0.0",
@@ -41,6 +40,7 @@
     "jest": "^25.4.0",
     "juration": "^0.1.1",
     "keypress": "^0.2.1",
+    "lodash": "^4.17.15",
     "luxon": "^1.23.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
