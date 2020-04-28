@@ -34,7 +34,7 @@ I want to prosimify my stopwatch function which is currently implemented using N
 # Installation
 
 ```bash
-npm i -g carpe-diem- [carpe-diem](#carpe-diem)
+npm i -g carpe-diem
 ```
 
 # Philosophy
