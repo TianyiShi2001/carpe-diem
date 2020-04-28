@@ -2,39 +2,19 @@ import * as juration from "juration";
 import * as _ from "lodash";
 const EventEmitter = require("events");
 const keypress = require("keypress");
+import moment from "moment";
+import * as momentDurationFormatSetup from "moment-duration-format";
 
 export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export function secondsToHHMM(seconds) {
-  const hours = ~~(seconds / 3600);
-  seconds -= hours * 3600;
-  const minutes = ~~(seconds / 60);
-
-  let res = "";
-  hours !== 0 && (res += hours.toString() + (hours === 1 ? " hour " : " hours "));
-  minutes !== 0 && (res += minutes.toString() + (minutes === 1 ? " minute" : " minutes"));
-
-  return res;
+  return moment.duration(seconds, "seconds").format("hh [hours] mm [minutes]");
 }
 
 export function secondsToHHMMSS(seconds) {
-  let hours: number | string = ~~(seconds / 3600);
-  seconds -= hours * 3600;
-  let minutes: number | string = ~~(seconds / 60);
-  seconds -= minutes * 60;
-
-  if (hours < 10) {
-    hours = "0" + hours;
-  }
-  if (minutes < 10) {
-    minutes = "0" + minutes;
-  }
-  if (seconds < 10) {
-    seconds = "0" + seconds;
-  }
-  return hours + ":" + minutes + ":" + seconds;
+  return moment.duration(seconds, "seconds").format("hh:mm:ss", { trim: false });
 }
 
 export function parseDuration(durationString): number | undefined {
@@ -63,7 +43,7 @@ class Stopwatch extends EventEmitter {
   }
 }
 
-export async function executeAfterStopwatch(callback, countDown) {
+export async function executeAfterStopwatch(countDown, callback) {
   let stopwatch = new Stopwatch(countDown);
   stopwatch.on("tick", function () {
     this.elapsed++;
@@ -83,10 +63,10 @@ export async function executeAfterStopwatch(callback, countDown) {
   }
   runStopwatch(stopwatch);
   keypress(process.stdin);
-  process.stdin.on("keypress", function (ch, key) {
+  process.stdin.on("keypress", async function (ch, key) {
     if (key && key.name == "q") {
       stopwatch.emit("stop");
-      callback();
+      await callback();
       process.stdin.pause();
     }
   });

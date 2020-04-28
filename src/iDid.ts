@@ -5,6 +5,8 @@ import * as _ from "lodash";
 import * as chrono from "chrono-node";
 import { DateTime } from "luxon";
 import { LogEntry, inquirerAttrs } from "./common";
+import * as task from "./task";
+import * as data from "./data";
 
 interface IDidOptions {
   task: string;
@@ -37,6 +39,9 @@ export async function getIDidOptionsInteractive(): Promise<IDidOptions> {
       filter: parseDuration,
     },
   ]);
+  if (!data.getTaskEntry(ans1.task)) {
+    await task.updateTasksInteractive(ans1.task);
+  }
   let ans2 = await inquirerAttrs(ans1.task);
   return { ...ans1, attrs: ans2 };
 }

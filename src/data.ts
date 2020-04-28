@@ -20,8 +20,11 @@ export function getLog(): LogEntry[] {
 export function getLocationDict() {
   return data.get("locations");
 }
-export function getTaskDict(): TaskEntry[] {
+export function getTaskDict() {
   return data.get("tasks");
+}
+export function getTaskEntry(q): TaskEntry {
+  return data.get("tasks")[q];
 }
 export function addLogEntry(entry: LogEntry): void {
   data.set("log", getLog().concat(entry));

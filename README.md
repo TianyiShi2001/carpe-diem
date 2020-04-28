@@ -13,6 +13,7 @@ I want to prosimify my stopwatch function which is currently implemented using N
 - [Table of Contents](#table-of-contents)
 - [Installation](#installation)
 - [Philosophy](#philosophy)
+  - [Real-World Example](#real-world-example)
 - [Quick Start](#quick-start)
   - [`i will`](#i-will)
     - [Use a single-line command with flags:](#use-a-single-line-command-with-flags)
@@ -48,6 +49,8 @@ npm i -g carpe-diem
   - If you are not an expert in data analysis, you can gain much information from automatically generated summaries.
   - Recorded information should be easily converted into other formats, such as `ics`, if you want to visualise them in ways you're used to
 
+## Real-World Example
+
 Let's consider a simple real-life situation. Imagine it's 10:06 now, and you are about to read a textbook. You use a digital calendar (iCal or Outlook) to record your tasks.
 
 - You open the calendar, wait for it to load, and click `add new`.
@@ -64,7 +67,7 @@ In contrast, this is what you would do using `carpe-diem`:
 
 - open a terminal
 - run `i will`
-- **Insead of typing 'read textbook' manually**, you are prompted to select, using arrow keys from a list of recent activities. If you've been working hard, chances are you only need to hit the down-arrow key three times or so and hit `Enter`. If you can't find `read textbook` in the list but have done this task previously, you just need to type `re` (or `tex`), and the list will be updated with the search results according to what you've entered on the fly (like suggestions under the google search box, but faster and more precise as it's based on local data)
+- **Insead of typing 'read textbook' manually, you are prompted to _select_**, using arrow keys, from a list of recent activities. If you've been working hard, chances are you only need to hit the down-arrow key three times or so and hit `Enter`. If you can't find `read textbook` in the list but have done this task previously, you just need to type `re` (or `tex`), and the list will be updated with the search results according to what you've entered on the fly (like suggestions under the google search box, but faster and more precise as it's based on local data)
 - You will then be prompted to enter the *expected* duration of your reading session. **You can skip this**, as it won't affect the *actual* duration (start and end time) of this task. It will just set up a countdown timer as a reference. If you want this, you simply type `1h30m` or `90m`.
 - **Instead of specifying the start and end time manually,** they are completed implicitly. When you finish this prompt, a stopwatch will start and the start time is recorded. You'll be able to monitor the time elapsd, and and you can stop the stopwatch **whenever you want**, and the end time (hence duration) is recorded accordingly.
 

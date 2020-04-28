@@ -1,6 +1,6 @@
 {
   "name": "carpe-diem",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Command Line Task Recorder",
   "main": "lib/index.js",
   "bin": {
@@ -43,6 +43,7 @@
     "lodash": "^4.17.15",
     "luxon": "^1.23.0",
     "moment": "^2.24.0",
+    "moment-duration-format": "^2.3.2",
     "moment-timezone": "^0.5.28",
     "numeral": "^2.0.6",
     "self-addressed": "^0.3.0",

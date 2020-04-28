@@ -3,13 +3,15 @@ import * as data from "./data";
 import { uniqueSortByOccurence } from "./utils";
 import * as fuzzy from "fuzzy";
 
+type Attrs = { [k: string]: any };
+
 export interface LogEntry {
   task: string;
   datetime: string;
   tz: string;
   duration: number;
   notes?: string;
-  attrs?: { [k: string]: any };
+  attrs?: Attrs;
 }
 
 export interface LocationEntry {
@@ -38,9 +40,9 @@ function autocompleteAttr(taskName, attrName) {
   };
 }
 
-export async function inquirerAttrs(taskName) {
+export async function inquirerAttrs(taskName): Promise<Attrs> {
   let qs = [];
-  for (const attrName of data.getTaskDict()[taskName]["attrs"] as string[]) {
+  for (const attrName of data.getTaskDict()[taskName]["attrs"].before.concat(data.getTaskDict()[taskName]["attrs"].after) as string[]) {
     qs.push({
       type: "autocomplete",
       name: attrName,
@@ -53,7 +55,7 @@ export async function inquirerAttrs(taskName) {
   return inquirer.prompt(qs);
 }
 
-export async function inquirerAttrsBefore(taskName) {
+export async function inquirerAttrsBefore(taskName): Promise<Attrs> {
   let qs = [];
   for (const attrName of data.getTaskDict()[taskName]["attrs"]["before"] as string[]) {
     qs.push({
@@ -68,7 +70,7 @@ export async function inquirerAttrsBefore(taskName) {
   return inquirer.prompt(qs);
 }
 
-export async function inquirerAttrsAfter(taskName) {
+export async function inquirerAttrsAfter(taskName): Promise<Attrs> {
   let qs = [];
   for (const attrName of data.getTaskDict()[taskName]["attrs"]["after"] as string[]) {
     qs.push({

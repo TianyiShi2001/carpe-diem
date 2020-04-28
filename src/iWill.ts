@@ -4,8 +4,9 @@ import { autocompleteTask, autocompleteDuration } from "./utils/autocomplete";
 import * as _ from "lodash";
 import { DateTime } from "luxon";
 import { LogEntry } from "./common";
-import * as CarpeDiemData from "./data";
-import { inquirerAttrs } from "./common";
+import * as data from "./data";
+import { inquirerAttrsAfter, inquirerAttrsBefore } from "./common";
+import * as task from "./task";
 
 interface IWillOptions {
   task: string;
@@ -29,20 +30,25 @@ export async function getIWillOptionsInteractive(): Promise<IWillOptions> {
       filter: parseDuration,
     },
   ]);
-  let ans2 = await inquirerAttrs(ans1.task);
-  return { ...ans1, attrs: ans2 };
+  if (!data.getTaskEntry(ans1.task)) {
+    await task.updateTasksInteractive(ans1.task);
+  }
+  let attrsBefore = await inquirerAttrsBefore(ans1.task);
+  return { ...ans1, attrs: attrsBefore };
 }
 
 export async function iWill(opts: IWillOptions) {
   const start = DateTime.local();
   let startTime = start.toString();
   let tz = start.zoneName;
-  executeAfterStopwatch(() => {
+  executeAfterStopwatch(opts.duration, async () => {
     let duration = ~~((DateTime.local() - start) / 1000);
+    let attrsAfter = await inquirerAttrsAfter(opts.task);
+    opts.attrs = { ...opts.attrs, ...attrsAfter };
     let entry = { task: opts.task, datetime: startTime, tz, duration, attrs: opts.attrs };
     console.log(entry);
-    CarpeDiemData.addLogEntry(entry);
-  }, opts.duration);
+    data.addLogEntry(entry);
+  });
   //let duration = ~~((DateTime.local() - start) / 1000);
   //return { task: opts.task, datetime: startTime, tz, duration };
 }
