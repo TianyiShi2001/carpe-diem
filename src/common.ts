@@ -52,3 +52,33 @@ export async function inquirerAttrs(taskName) {
   if (qs.length === 0) return {};
   return inquirer.prompt(qs);
 }
+
+export async function inquirerAttrsBefore(taskName) {
+  let qs = [];
+  for (const attrName of data.getTaskDict()[taskName]["attrs"]["before"] as string[]) {
+    qs.push({
+      type: "autocomplete",
+      name: attrName,
+      message: `${attrName}?`,
+      source: autocompleteAttr(taskName, attrName),
+    });
+    console.log(attrName, qs);
+  }
+  if (qs.length === 0) return {};
+  return inquirer.prompt(qs);
+}
+
+export async function inquirerAttrsAfter(taskName) {
+  let qs = [];
+  for (const attrName of data.getTaskDict()[taskName]["attrs"]["after"] as string[]) {
+    qs.push({
+      type: "autocomplete",
+      name: attrName,
+      message: `${attrName}?`,
+      source: autocompleteAttr(taskName, attrName),
+    });
+    console.log(attrName, qs);
+  }
+  if (qs.length === 0) return {};
+  return inquirer.prompt(qs);
+}

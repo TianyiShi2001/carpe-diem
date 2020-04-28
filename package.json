@@ -1,6 +1,6 @@
 {
   "name": "carpe-diem",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Command Line Task Recorder",
   "main": "lib/index.js",
   "bin": {

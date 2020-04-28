@@ -1,16 +1,112 @@
 # carpe-diem
 
-A handy task recorder for people who don't make plans but do care about their efficiency.
+A handy task recorder for people who don't make plans but do care about their efficiency. Help this project
 
-# Need Help
+# Help WANTED!
 
 I want to prosimify my stopwatch function which is currently implemented using Node.js `EventEmitter` and callbacks but currently I haven't found a way to do it. Please see [this stackoverflow question](https://stackoverflow.com/questions/61392232/how-to-break-an-infinite-loop-inside-a-function-on-keystroke-in-node-js).
+
+# Table of Contents
+
+- [carpe-diem](#carpe-diem)
+- [Help WANTED!](#help-wanted)
+- [Table of Contents](#table-of-contents)
+- [Installation](#installation)
+- [Philosophy](#philosophy)
+- [Quick Start](#quick-start)
+  - [`i will`](#i-will)
+    - [Use a single-line command with flags:](#use-a-single-line-command-with-flags)
+    - [Interactive mode:](#interactive-mode)
+    - ['Natural language' mode (NOT IMPLEMENTED YET):](#natural-language-mode-not-implemented-yet)
+  - [`i continue` (NOT IMPLEMENTED YET)](#i-continue-not-implemented-yet)
+  - [`i did`](#i-did)
+    - [Use a single-line command with flags:](#use-a-single-line-command-with-flags-1)
+    - [Interactive mode:](#interactive-mode-1)
+    - ['Natural language' mode (NOT IMPLEMENTED YET):](#natural-language-mode-not-implemented-yet-1)
+  - [`i show`](#i-show)
+- [Advanced Features](#advanced-features)
+  - [Custom Attributes](#custom-attributes)
+- [TODOs](#todos)
+- [Compared To Other Command line time trackers](#compared-to-other-command-line-time-trackers)
+  - [Custom Attributes](#custom-attributes-1)
+  - [Natural Language Support](#natural-language-support)
 
 # Installation
 
 ```bash
-npm i -g carpe-diem
+npm i -g carpe-diem- [carpe-diem](#carpe-diem)
 ```
+
+# Philosophy
+
+- Tracking time itself should not be a waste of time. You should not be limited to doing tasks in 1-hour or 30-minute blocks, for example. You should be able to do a task for as long as you want, and the exact time and duration, precise to seconds, are recorded, without any manual specification.
+- You are not limited to adding a generic note to your task. You can add custom attributes to each task. `read textbook` can have `bookName`, `chapter`, `pageStart` and `pageEnd`, for example.
+  - Using custom attributes should not be wasting too much time. Each time you record a new `bookName`, they will appear in a list for you to select next time you `read textbook`.
+  - Of course, the list is not random or alphabetical, the books you read recently and most frequently appear on the top. `carpe-diem` not only saves you from typing (or copying-pasting) attribute names again and again, but even minimises the number of times you press the down-arrow key.
+- Rich information and high flexibility should not make things more complicated and confusing, but instead should make things easier
+  - You should be able to do data analysis easily on the recorded information. Custom attributes helps a lot (for example, you can compare your efficiency of reading different books, if you've recorded `pageStart` and `pageEnd` well.)
+  - If you are not an expert in data analysis, you can gain much information from automatically generated summaries.
+  - Recorded information should be easily converted into other formats, such as `ics`, if you want to visualise them in ways you're used to
+
+Let's consider a simple real-life situation. Imagine it's 10:06 now, and you are about to read a textbook. You use a digital calendar (iCal or Outlook) to record your tasks.
+
+- You open the calendar, wait for it to load, and click `add new`.
+- You type in `read textbook` as the title of the event
+- Chances are your calendar provides a start time of 10:00 today and a duration of 1 hour (i.e. an end time of 11:00).
+- You think, "No, it's 10:06, and I'll start 2 minutes later, that is, 10:08, after I finish filling in the details into this calendar event, not 10:00." So you edited the `start time` field manually by either using a scroll bar on phone or typing in on a computer (BTW, Mac's TouchBar won't help, as it only allows you to choose times at XX:00, XX:15, XX:30, and XX:45.)
+- Then you think, "I shall work harder and read for 1 hour and half", so you also incremented the end time manually.
+- **Finally you start reading.**
+- At 11:38, which is the time you expect to stop, you are just about to finish a subsection, so you carry on and finish it, and finally your reading session ends at 11:47
+- At the end, you go back and edit the event on calendar to reset the end time.
+
+
+In contrast, this is what you would do using `carpe-diem`:
+
+- open a terminal
+- run `i will`
+- **Insead of typing 'read textbook' manually**, you are prompted to select, using arrow keys from a list of recent activities. If you've been working hard, chances are you only need to hit the down-arrow key three times or so and hit `Enter`. If you can't find `read textbook` in the list but have done this task previously, you just need to type `re` (or `tex`), and the list will be updated with the search results according to what you've entered on the fly (like suggestions under the google search box, but faster and more precise as it's based on local data)
+- You will then be prompted to enter the *expected* duration of your reading session. **You can skip this**, as it won't affect the *actual* duration (start and end time) of this task. It will just set up a countdown timer as a reference. If you want this, you simply type `1h30m` or `90m`.
+- **Instead of specifying the start and end time manually,** they are completed implicitly. When you finish this prompt, a stopwatch will start and the start time is recorded. You'll be able to monitor the time elapsd, and and you can stop the stopwatch **whenever you want**, and the end time (hence duration) is recorded accordingly.
+
+Let's re-consider the same scenario, this time assuming you're an unfortunate person whose focus is frequently interrupted:
+
+Using calendar:
+
+- You create the event `10:06-11:36 read textbook`, as described above.
+- However, things do not always go according to plan. At 10:53, your tutor angrily tells you that you omitted a question on the last page of the worksheet. You stop reading, adjust the end time of your reading session to be 10:53, and turn your focus to the worksheet.
+- Unfortunately, though, at 11:05, 12 minutes aftert you start off, you realised that you missed one lecture whose content is crucial for solving part of this question.
+- You take a minute to record `10:53-11:05 do Worksheet` on calendar, and then set out to learn that piece of lecture handout. After 15 minutes of learning, you record `11:06-11:21 learn lecture notes` on calendar, go back to the worksheet, and take another 20 minutes to solve it. Then you record `11:21-11:41 do worksheet` on calendar.
+- Finally, after emailing your work back to your tutor, you can continue reading the textbook. You copy and paste the previously created event `10:06-11:36 read textbook` and updated the times accordingly.
+
+Using `carpe-diem`:
+
+- `i w`, then select `read textbook`
+- Upon receiving yout tutor's message, hit `q` to abort.
+- `i w --interrupt`, then select `do worksheet`
+- Upon encountering the difficult part of the question, hit `q` to abort again.
+- `i w --interrupt`, then select `learn lecture notes`.
+- Upon knowing how to solve the question, `i w --continue` (`carpe-diem` knows you'll continue to `do worksheet`)
+- Upon finishing worksheet, `i w --continue` again (to `read textbook`)
+- **All times and durations are recorded precisely.**
+
+Let's re-consider the same scenario again, this time assuming you're a meticulous person who want to be detailed about what you record.
+
+Using calendar:
+
+- You create the event `10:06-11:36 read textbook`, as described above.
+- If you're that type of meticulous person, you also make notes: "And I'm reading 'Molecular Biology of the Cell' by Alberts, Chapter 5, page 237 to... when I finish I'll come back and complete the page I ended".
+- When you finish, you open the event and add that end page (and likely also modify the end time).
+- You type that much when you record a `read textbook` event every time. Copying-and-pasting won't be much faster (it can be even slower).
+- It is extremely difficult to make a summary of your effort in reading textbooks. The data is difficult to extract and not standardised.
+
+Using `carpe-diem`:
+
+- `i w`, then select `read textbook`.
+- If you have done proper configuration for the task `read textbook` previously, then, **instead of typing 'Molecular Biology of the Cell by Alberts' manually**, you'll again be able to **select** from a list of textbooks you've read previously. You can also do a search to narrow down the choices, if necessary. In next steps, you enter the the chapter and the start page similarly. These steps are the result of setting *custom attributes*.
+- Stopwatch starts.
+- When you finish, you hit `q`, and you are then prompted to enter the end page.
+- Everything can be formatted in a plain JSON file. You can do data analysis easily.
+
 
 # Quick Start
 
