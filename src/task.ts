@@ -30,16 +30,22 @@ export async function getTaskOptionsInteractive(taskName?): Promise<TaskEntry> {
     {
       type: "input",
       name: "attrs.before",
-      message: "Attributes to be specified before a task begins?",
+      message: "New task: Attributes to set before a task begins? e.g. 'chapter, start page'",
       default: (answers) => getTaskAttrsAsString(answers.name || taskName),
       filter: (input: string) => input.split(/,\s*/g),
     },
     {
       type: "input",
       name: "attrs.after",
-      message: "Attributes to be specified after a task finishes?",
+      message: "New Task: Attributes to set after a task finishes? e.g. 'end page'",
       default: (answers) => getTaskAttrsAsString(answers.name || taskName),
       filter: (input: string) => input.split(/,\s*/g),
+    },
+    {
+      type: "input",
+      name: "efficiency",
+      message: "Efficiency of the task? Enter a number between -5 to 5.",
+      validate: (input) => (+input && -5 <= +input && +input <= 5 ? true : "Enter a number between -5 and 5."),
     },
   ]);
   return { ...{ name: taskName }, ...ans };

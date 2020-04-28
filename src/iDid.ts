@@ -4,7 +4,7 @@ import { autocompleteDate, autocompleteTask, autocompleteDuration } from "./util
 import * as _ from "lodash";
 import * as chrono from "chrono-node";
 import { DateTime } from "luxon";
-import { LogEntry, inquirerAttrs } from "./common";
+import { LogEntry, inquirerAttrs, inquirerEfficiency, Efficiency, Attrs } from "./common";
 import * as task from "./task";
 import * as data from "./data";
 
@@ -12,8 +12,8 @@ interface IDidOptions {
   task: string;
   start: Date;
   duration: number;
-  tz?: string;
-  attrs?: { [k: string]: any };
+  attrs?: Attrs;
+  efficiency: Efficiency;
 }
 
 export async function getIDidOptionsInteractive(): Promise<IDidOptions> {
@@ -42,8 +42,9 @@ export async function getIDidOptionsInteractive(): Promise<IDidOptions> {
   if (!data.getTaskEntry(ans1.task)) {
     await task.updateTasksInteractive(ans1.task);
   }
-  let ans2 = await inquirerAttrs(ans1.task);
-  return { ...ans1, attrs: ans2 };
+  let attrs = await inquirerAttrs(ans1.task);
+  let efficiency = await inquirerEfficiency(ans1.task);
+  return { ...ans1, attrs, efficiency };
 }
 
 export function iDidOptionsNatualLanguageParser(query) {

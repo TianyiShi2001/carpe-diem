@@ -1,11 +1,10 @@
 import inquirer from "./utils/inquirer";
-import { sleep, secondsToHHMMSS, parseDuration, executeAfterStopwatch } from "./utils";
+import { parseDuration, executeAfterStopwatch } from "./utils";
 import { autocompleteTask, autocompleteDuration } from "./utils/autocomplete";
 import * as _ from "lodash";
 import { DateTime } from "luxon";
-import { LogEntry } from "./common";
 import * as data from "./data";
-import { inquirerAttrsAfter, inquirerAttrsBefore } from "./common";
+import { inquirerAttrsAfter, inquirerAttrsBefore, inquirerEfficiency } from "./common";
 import * as task from "./task";
 
 interface IWillOptions {
@@ -44,8 +43,9 @@ export async function iWill(opts: IWillOptions) {
   executeAfterStopwatch(opts.duration, async () => {
     let duration = ~~((DateTime.local() - start) / 1000);
     let attrsAfter = await inquirerAttrsAfter(opts.task);
+    let efficiency = await inquirerEfficiency(opts.task);
     opts.attrs = { ...opts.attrs, ...attrsAfter };
-    let entry = { task: opts.task, datetime: startTime, tz, duration, attrs: opts.attrs };
+    let entry = { task: opts.task, datetime: startTime, tz, duration, attrs: opts.attrs, efficiency };
     console.log(entry);
     data.addLogEntry(entry);
   });

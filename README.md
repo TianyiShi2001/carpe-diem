@@ -31,6 +31,7 @@ I want to prosimify my stopwatch function which is currently implemented using N
 - [Compared To Other Command line time trackers](#compared-to-other-command-line-time-trackers)
   - [Custom Attributes](#custom-attributes-1)
   - [Natural Language Support](#natural-language-support)
+- [Change Log](#change-log)
 
 # Installation
 
@@ -205,3 +206,7 @@ t i -a "2010-11-29 12:30:00"
 
 ||[carpe-diem](https://github.com/TianyiShi2001/carpe-diem)|[Timetrap](https://github.com/samg/timetrap)|
 |Language|Typescript (Node.js)|Ruby|
+
+
+# Change Log
+
