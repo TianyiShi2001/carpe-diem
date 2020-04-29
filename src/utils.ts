@@ -86,6 +86,7 @@ export async function executeAfterStopwatch(countDown, callback) {
   process.stdin.on("keypress", async function (ch, key) {
     if (key && key.name == "q") {
       stopwatch.emit("stop");
+      console.clear();
       await callback();
       process.stdin.pause();
     }

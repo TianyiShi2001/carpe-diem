@@ -50,7 +50,6 @@ export async function inquirerAttrs(taskName): Promise<Attrs> {
       message: `${attrName}?`,
       source: autocompleteAttr(taskName, attrName),
     });
-    console.log(attrName, qs);
   }
   if (qs.length === 0) return {};
   return inquirer.prompt(qs);
@@ -65,7 +64,6 @@ export async function inquirerAttrsBefore(taskName): Promise<Attrs> {
       message: `${attrName}?`,
       source: autocompleteAttr(taskName, attrName),
     });
-    console.log(attrName, qs);
   }
   if (qs.length === 0) return {};
   return inquirer.prompt(qs);
@@ -80,7 +78,6 @@ export async function inquirerAttrsAfter(taskName): Promise<Attrs> {
       message: `${attrName}?`,
       source: autocompleteAttr(taskName, attrName),
     });
-    console.log(attrName, qs);
   }
   if (qs.length === 0) return {};
   return inquirer.prompt(qs);

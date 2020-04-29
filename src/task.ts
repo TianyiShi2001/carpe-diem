@@ -1,10 +1,7 @@
 import * as data from "./data";
 import inquirer from "./utils/inquirer";
-import { parseDuration } from "./utils";
-import { autocompleteDate, autocompleteTask, getTaskAttrsAsString } from "./utils/autocomplete";
+import { autocompleteTask } from "./utils/autocomplete";
 import * as _ from "lodash";
-import * as chrono from "chrono-node";
-import { DateTime } from "luxon";
 
 interface TaskAttrs {
   before: string[];
@@ -30,22 +27,29 @@ export async function getTaskOptionsInteractive(taskName?): Promise<TaskEntry> {
     {
       type: "input",
       name: "attrs.before",
-      message: "New task: Attributes to set before a task begins? e.g. 'chapter, start page'",
-      default: (answers) => getTaskAttrsAsString(answers.name || taskName),
-      filter: (input: string) => input.split(/,\s*/g),
+      message: "Attributes to set before a task begins? e.g. 'chapter, start page'",
+      default: (answers) => getTaskAttrsBeforeAsString(answers.name || taskName),
+      filter: (input: string) => (input ? input.split(/,\s*/g) : []),
     },
     {
       type: "input",
       name: "attrs.after",
-      message: "New Task: Attributes to set after a task finishes? e.g. 'end page'",
-      default: (answers) => getTaskAttrsAsString(answers.name || taskName),
-      filter: (input: string) => input.split(/,\s*/g),
+      message: "Attributes to set after a task finishes? e.g. 'end page'",
+      default: (answers) => getTaskAttrsAfterAsString(answers.name || taskName),
+      filter: (input: string) => (input ? input.split(/,\s*/g) : []),
     },
     {
       type: "input",
       name: "efficiency",
-      message: "Efficiency of the task? Enter a number between -5 to 5.",
-      validate: (input) => (+input && -5 <= +input && +input <= 5 ? true : "Enter a number between -5 and 5."),
+      message: "Productivity of the task? Enter a number between -5 to 5.",
+      validate: (input) => (+input && -5 <= +input && +input <= 5 ? true : "Enter a number between -5 and 5. -5 means very unproductive; 5 means very productive."),
+    },
+    {
+      type: "input",
+      name: "tags",
+      message: "What tags would you add to this task?",
+      default: (answers) => getTaskTagsAsString(answers.name || taskName),
+      filter: (input: string) => (input ? input.split(/,\s*/g) : []),
     },
   ]);
   return { ...{ name: taskName }, ...ans };
@@ -76,3 +80,18 @@ export async function updateTasksInteractive(taskName?): Promise<void> {
 //   ]);
 //   return { ...ans1, ...ans2 };
 // }
+
+function getTaskAttrsBeforeAsString(taskName: string): string {
+  let task = data.getTaskEntry(taskName);
+  return task && task["attrs"] ? task["attrs"]["before"].join(", ") : "";
+}
+
+function getTaskAttrsAfterAsString(taskName: string): string {
+  let task = data.getTaskEntry(taskName);
+  return task && task["attrs"] ? task["attrs"]["after"].join(", ") : "";
+}
+
+function getTaskTagsAsString(taskName: string): string {
+  let task = data.getTaskEntry(taskName);
+  return task && task["tags"] ? task["tags"].join(", ") : "";
+}

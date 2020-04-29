@@ -1,6 +1,6 @@
 {
   "name": "carpe-diem",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "CLI Time Tracker (Task Recorder)",
   "main": "lib/index.js",
   "bin": {
@@ -18,7 +18,8 @@
   "keywords": [
     "cli",
     "task-tracker",
-    "efficiency"
+    "efficiency",
+    "GTD"
   ],
   "author": "Tianyi Shi <ShiTianyi2001@outlook.com>",
   "license": "MIT",

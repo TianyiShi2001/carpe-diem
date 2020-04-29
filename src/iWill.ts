@@ -30,6 +30,7 @@ export async function getIWillOptionsInteractive(): Promise<IWillOptions> {
     },
   ]);
   if (!data.getTaskEntry(ans1.task)) {
+    console.log(`You haven't done this task before. Now initializing "${ans1.task}"`);
     await task.updateTasksInteractive(ans1.task);
   }
   let attrsBefore = await inquirerAttrsBefore(ans1.task);

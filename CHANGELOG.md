@@ -18,8 +18,17 @@ Added:
 
 - Efficiency rating
 
-## [0.0.7] 2020-04-30
+## [0.0.7] 2020-04-29
+
+Added:
+
+- Tagging system
 
 Changed:
 
 - Use [**data-store**](https://www.npmjs.com/package/data-store) instead of [**configstore**](https://github.com/yeoman/configstore)
+- Split the data file into `carpe-diem-log.json` and `carpe-diem-meta.json`.
+
+Fixed:
+
+- `getTaskAttrsAsString` should be split into `getTaskAttrsAfterBeforeAsString` and `getTaskAttrsAfterAsString`

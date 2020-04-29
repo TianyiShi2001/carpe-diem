@@ -40,6 +40,7 @@ export async function getIDidOptionsInteractive(): Promise<IDidOptions> {
     },
   ]);
   if (!data.getTaskEntry(ans1.task)) {
+    console.log(`You haven't done this task before. Now initializing "${ans1.task}"`);
     await task.updateTasksInteractive(ans1.task);
   }
   let attrs = await inquirerAttrs(ans1.task);

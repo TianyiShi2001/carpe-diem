@@ -1,6 +1,10 @@
 # carpe-diem
 
-A handy task recorder for people who don't make plans but do care about their efficiency. Help this project
+A handy task recorder for people who don't make plans but do care about their efficiency.
+
+**The API is yet to be stable. Please do not use it in production.**
+
+**This project is at a very early stage of development. Contributions and feature requests are welcome!**
 
 # 🙋‍♂️Help WANTED!
 

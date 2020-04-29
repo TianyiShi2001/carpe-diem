@@ -25,16 +25,6 @@ function getTasks(algorithm = "recent"): string[] {
   return Object.keys(data.getTaskDict());
 }
 
-export function getTaskAttrsAsString(taskName: string): string {
-  let taskDict = data.getTaskDict();
-  if (taskDict[taskName]) {
-    if (taskDict[taskName]["attrs"]) {
-      return taskDict[taskName]["attrs"].join(", ");
-    }
-  }
-  return "";
-}
-
 export async function autocompleteTask(answers, input) {
   input = input || "";
   let fuzzyResult = fuzzy.filter(input, getTasks());
