@@ -2,44 +2,43 @@
 
 A handy task recorder for people who don't make plans but do care about their efficiency. Help this project
 
-# Help WANTED!
+# 🙋‍♂️Help WANTED!
 
 I want to prosimify my stopwatch function which is currently implemented using Node.js `EventEmitter` and callbacks but currently I haven't found a way to do it. Please see [this stackoverflow question](https://stackoverflow.com/questions/61392232/how-to-break-an-infinite-loop-inside-a-function-on-keystroke-in-node-js).
 
-# Table of Contents
+# 📖Table of Contents
 
 - [carpe-diem](#carpe-diem)
-- [Help WANTED!](#help-wanted)
-- [Table of Contents](#table-of-contents)
-- [Installation](#installation)
-- [Philosophy](#philosophy)
-  - [Real-World Example](#real-world-example)
-- [Quick Start](#quick-start)
+- [🙋‍♂️Help WANTED!](#%f0%9f%99%8b%e2%80%8d%e2%99%82%ef%b8%8fhelp-wanted)
+- [📖Table of Contents](#%f0%9f%93%96table-of-contents)
+- [🛠Installation](#%f0%9f%9b%a0installation)
+- [🜎Philosophy](#%f0%9f%9c%8ephilosophy)
+  - [💡Real-World Example](#%f0%9f%92%a1real-world-example)
+- [🚀Quick Start](#%f0%9f%9a%80quick-start)
   - [`i will`](#i-will)
     - [Use a single-line command with flags:](#use-a-single-line-command-with-flags)
     - [Interactive mode:](#interactive-mode)
     - ['Natural language' mode (NOT IMPLEMENTED YET):](#natural-language-mode-not-implemented-yet)
-  - [`i continue` (NOT IMPLEMENTED YET)](#i-continue-not-implemented-yet)
   - [`i did`](#i-did)
     - [Use a single-line command with flags:](#use-a-single-line-command-with-flags-1)
     - [Interactive mode:](#interactive-mode-1)
     - ['Natural language' mode (NOT IMPLEMENTED YET):](#natural-language-mode-not-implemented-yet-1)
   - [`i show`](#i-show)
-- [Advanced Features](#advanced-features)
+- [🌟Advanced Features](#%f0%9f%8c%9fadvanced-features)
   - [Custom Attributes](#custom-attributes)
-- [TODOs](#todos)
+- [✅TODOs](#%e2%9c%85todos)
 - [Compared To Other Command line time trackers](#compared-to-other-command-line-time-trackers)
   - [Custom Attributes](#custom-attributes-1)
   - [Natural Language Support](#natural-language-support)
-- [Change Log](#change-log)
+- [📝Change Log](#%f0%9f%93%9dchange-log)
 
-# Installation
+# 🛠Installation
 
 ```bash
 npm i -g carpe-diem
 ```
 
-# Philosophy
+# 🜎Philosophy
 
 - Tracking time itself should not be a waste of time. You should not be limited to doing tasks in 1-hour or 30-minute blocks, for example. You should be able to do a task for as long as you want, and the exact time and duration, precise to seconds, are recorded, without any manual specification.
 - You are not limited to adding a generic note to your task. You can add custom attributes to each task. `read textbook` can have `bookName`, `chapter`, `pageStart` and `pageEnd`, for example.
@@ -50,9 +49,11 @@ npm i -g carpe-diem
   - If you are not an expert in data analysis, you can gain much information from automatically generated summaries.
   - Recorded information should be easily converted into other formats, such as `ics`, if you want to visualise them in ways you're used to
 
-## Real-World Example
+## 💡Real-World Example
 
-Let's consider a simple real-life situation. Imagine it's 10:06 now, and you are about to read a textbook. You use a digital calendar (iCal or Outlook) to record your tasks.
+Let's consider a simple real-life situation. Imagine it's 10:06 now, and you are about to read a textbook.
+
+🤔This is what you would probably do if you use a digital calendar (iCal or Outlook) to record your tasks.
 
 - You open the calendar, wait for it to load, and click `add new`.
 - You type in `read textbook` as the title of the event
@@ -64,7 +65,7 @@ Let's consider a simple real-life situation. Imagine it's 10:06 now, and you are
 - At the end, you go back and edit the event on calendar to reset the end time.
 
 
-In contrast, this is what you would do using `carpe-diem`:
+😎In contrast, this is what you would do using `carpe-diem`:
 
 - open a terminal
 - run `i will`
@@ -74,7 +75,7 @@ In contrast, this is what you would do using `carpe-diem`:
 
 Let's re-consider the same scenario, this time assuming you're an unfortunate person whose focus is frequently interrupted:
 
-Using calendar:
+😣Using calendar:
 
 - You create the event `10:06-11:36 read textbook`, as described above.
 - However, things do not always go according to plan. At 10:53, your tutor angrily tells you that you omitted a question on the last page of the worksheet. You stop reading, adjust the end time of your reading session to be 10:53, and turn your focus to the worksheet.
@@ -82,7 +83,7 @@ Using calendar:
 - You take a minute to record `10:53-11:05 do Worksheet` on calendar, and then set out to learn that piece of lecture handout. After 15 minutes of learning, you record `11:06-11:21 learn lecture notes` on calendar, go back to the worksheet, and take another 20 minutes to solve it. Then you record `11:21-11:41 do worksheet` on calendar.
 - Finally, after emailing your work back to your tutor, you can continue reading the textbook. You copy and paste the previously created event `10:06-11:36 read textbook` and updated the times accordingly.
 
-Using `carpe-diem`:
+😎Using `carpe-diem`:
 
 - `i w`, then select `read textbook`
 - Upon receiving yout tutor's message, hit `q` to abort.
@@ -95,7 +96,7 @@ Using `carpe-diem`:
 
 Let's re-consider the same scenario again, this time assuming you're a meticulous person who want to be detailed about what you record.
 
-Using calendar:
+😫Using calendar:
 
 - You create the event `10:06-11:36 read textbook`, as described above.
 - If you're that type of meticulous person, you also make notes: "And I'm reading 'Molecular Biology of the Cell' by Alberts, Chapter 5, page 237 to... when I finish I'll come back and complete the page I ended".
@@ -103,7 +104,7 @@ Using calendar:
 - You type that much when you record a `read textbook` event every time. Copying-and-pasting won't be much faster (it can be even slower).
 - It is extremely difficult to make a summary of your effort in reading textbooks. The data is difficult to extract and not standardised.
 
-Using `carpe-diem`:
+😎Using `carpe-diem`:
 
 - `i w`, then select `read textbook`.
 - If you have done proper configuration for the task `read textbook` previously, then, **instead of typing 'Molecular Biology of the Cell by Alberts' manually**, you'll again be able to **select** from a list of textbooks you've read previously. You can also do a search to narrow down the choices, if necessary. In next steps, you enter the the chapter and the start page similarly. These steps are the result of setting *custom attributes*.
@@ -112,7 +113,7 @@ Using `carpe-diem`:
 - Everything can be formatted in a plain JSON file. You can do data analysis easily.
 
 
-# Quick Start
+# 🚀Quick Start
 
 ## `i will`
 
@@ -139,10 +140,6 @@ This is inspired by SQL.
 - `i will do foo bar` or `i will foo bar` is equivalent to `i will --do foo bar`
 - `i will do foo bar for 2.5h` or `i will foo bar for 2.5h` is equivalent to `i will --do foo bar --for 2.5h`
 
-## `i continue` (NOT IMPLEMENTED YET)
-
-This will continue the previous task. The countdown will continue if there is one.
-
 ## `i did`
 
 The `i did` (alias: `i d`) command means: I did some task, and I know when it started and how long it took. Please log my task details, date+time and duration.
@@ -167,13 +164,13 @@ Just `i did` or `i d`. Similar to the interative mode of `i will`, but you have 
 
 - `i show log`: show the log (the list of tasks you've done), in JSON format
 
-# Advanced Features
+# 🌟Advanced Features
 
 ## Custom Attributes
 
 Each task can have several associated attributes. For example, for the task `read textbook`, there can be attributes `bookName`, `pageStart`, `pageEnd`, `chapter`, for example. Custom attributes can be set using the `i edit tasks` command, and once they're set, additional prompts will be generated for this task.
 
-# TODOs
+# ✅TODOs
 
 - `i summarise` functionalities
 - task tags/categories (and/or hierachical classification?)
@@ -208,5 +205,6 @@ t i -a "2010-11-29 12:30:00"
 |Language|Typescript (Node.js)|Ruby|
 
 
-# Change Log
+# 📝Change Log
 
+See [CHANGELOG.md](./CHANGELOG.md)
